@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 /* ─── Quick suggestion chips ─── */
 const SUGGESTIONS = [
     "What are Zeeshan's skills?",
@@ -112,7 +114,7 @@ const Chat = () => {
             const allMessages = messages.map(m => ({ role: m.role, content: m.content }));
             const firstUserIdx = allMessages.findIndex(m => m.role === 'user');
             const history = firstUserIdx > 0 ? allMessages.slice(firstUserIdx) : allMessages;
-            const res = await fetch('/api/chat', {
+            const res = await fetch(`${API_BASE}/api/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: trimmed, history }),

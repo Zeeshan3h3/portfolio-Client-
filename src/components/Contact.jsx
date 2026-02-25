@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 const contactInfo = [
     {
         icon: '✉️',
@@ -37,7 +39,7 @@ const Contact = () => {
         e.preventDefault();
         setStatus('Sending...');
         try {
-            const res = await fetch('/api/contact', {
+            const res = await fetch(`${API_BASE}/api/contact`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
